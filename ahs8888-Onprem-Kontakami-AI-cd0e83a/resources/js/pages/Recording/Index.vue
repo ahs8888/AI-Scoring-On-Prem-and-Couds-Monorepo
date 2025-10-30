@@ -41,6 +41,7 @@
 import RecordingList from "@/Components/Module/Recording/RecordingList.vue"
 import TicketStats from "@/Components/Module/Recording/TicketStats.vue"
 import { usePaginate } from "@/Hooks/usePaginate";
+import { provideUploadState } from "@/Hooks/uploadState";
 import AppLayout from "@/Layouts/AppLayout.vue"
 
 interface Props {
@@ -56,6 +57,9 @@ const props = withDefaults(defineProps<Props>(), {
     unlinkedCount: 0,
     ticketStats: () => ({ total: 0, linked: 0, unlinked: 0 })
 });
+
+// Provide upload state for child components
+provideUploadState();
 
 const paginate = usePaginate({
     route: route('api.recordings.datatable')
