@@ -4,7 +4,7 @@ return [
     // Decryption settings
     'encryption' => [
         'method' => 'aes-256-cbc',
-        'key' => env('ENCRYPTION_KEY', ''),
+        'key' => env('FILE_ENCRYPTION_KEY', ''),
     ],
     
     // AI enrichment settings
