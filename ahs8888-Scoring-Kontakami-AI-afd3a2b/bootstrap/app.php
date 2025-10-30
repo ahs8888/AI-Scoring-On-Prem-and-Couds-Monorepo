@@ -39,6 +39,23 @@ return Application::configure(basePath: dirname(__DIR__))
                 Route::middleware(['web'])
                     ->group(base_path('routes/web.php'));
             }
+            
+            // Phase 10B Routes: External API (token-authenticated)
+            Route::middleware('api-auth')
+                ->prefix('external/v1')
+                ->group(base_path('routes/phase10b/ingest.php'));
+            
+            Route::middleware('api-auth')
+                ->prefix('external/v1')
+                ->group(base_path('routes/phase10b/decision.php'));
+            
+            Route::middleware('api-auth')
+                ->prefix('external/v1')
+                ->group(base_path('routes/phase10b/enrichment.php'));
+            
+            Route::middleware('api-auth')
+                ->prefix('external/v1')
+                ->group(base_path('routes/phase10b/telemetry.php'));
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
