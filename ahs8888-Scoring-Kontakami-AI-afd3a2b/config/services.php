@@ -39,6 +39,10 @@ return [
         'key' => env('KONTAKAMI_AI_KEY'),
         'model' => env('KONTAKAMI_AI_MODEL')
     ],
+    
+    'gemini' => [
+        'key' => env('GEMINI_KEY'),
+    ],
 
 
     'socket_broadcast' => [
