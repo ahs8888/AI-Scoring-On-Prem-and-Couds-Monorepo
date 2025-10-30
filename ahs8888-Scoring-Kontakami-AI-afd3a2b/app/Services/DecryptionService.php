@@ -72,11 +72,12 @@ class DecryptionService
         $iv = substr($data, 0, $ivLength);
         $encrypted = substr($data, $ivLength);
         
+        // Use OPENSSL_RAW_DATA flag to match on-prem encryption
         return openssl_decrypt(
             $encrypted,
             $this->method,
             $this->encryptionKey,
-            0,
+            OPENSSL_RAW_DATA,
             $iv
         );
     }
