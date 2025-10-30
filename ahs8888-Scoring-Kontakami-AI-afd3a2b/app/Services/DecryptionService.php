@@ -12,8 +12,17 @@ class DecryptionService
     
     public function __construct()
     {
-        $this->encryptionKey = config('phase10b.encryption.key');
+        $rawKey = config('phase10b.encryption.key');
         $this->method = config('phase10b.encryption.method', 'aes-256-cbc');
+        
+        // Match on-prem key derivation
+        if ($this->method === 'aes-256-cbc') {
+            $this->encryptionKey = substr(hash('sha256', $rawKey, true), 0, 32);
+        } elseif ($this->method === 'aes-128-cbc') {
+            $this->encryptionKey = substr(hash('sha256', $rawKey, true), 0, 16);
+        } else {
+            $this->encryptionKey = $rawKey;
+        }
     }
     
     /**
