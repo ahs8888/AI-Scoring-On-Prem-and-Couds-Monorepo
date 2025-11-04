@@ -28,4 +28,12 @@ export default defineConfig({
             '@': path.resolve(__dirname, './resources/js'),
         },
     },
+    server: {
+        hmr: {
+            overlay: false, // Disable error overlay that causes blank page
+        },
+    },
+    worker: {
+        format: 'es', // Fix worker script evaluation
+    },
 });
