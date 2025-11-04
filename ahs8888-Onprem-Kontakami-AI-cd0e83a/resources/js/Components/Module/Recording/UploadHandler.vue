@@ -74,11 +74,31 @@
 <script setup lang="ts">
 import { clickId, showAlert } from '@/Plugins/Function/global-function';
 import ButtonPrimary from "@/Components/Button/ButtonPrimary.vue";
-import { ref } from 'vue';
+import { ref, onErrorCaptured } from 'vue';
 import { useUploadState } from '@/Hooks/uploadState';
 
 const emit = defineEmits(["fetchData"])
-const uploadState = useUploadState()
+
+// Error handling for upload state
+let uploadState: any;
+try {
+    uploadState = useUploadState()
+} catch (error) {
+    console.error('Upload state error:', error);
+    // Provide default fallback
+    uploadState = {
+        uploading: ref(false),
+        injectId: ref(''),
+        folderName: ref(''),
+        progress: ref(0),
+    };
+}
+
+// Capture component errors
+onErrorCaptured((err) => {
+    console.error('Component error:', err);
+    return false; // Prevent error from propagating
+});
 
 const showModal = ref(false)
 const requiresTicket = ref(true) // Default to true as per requirements
